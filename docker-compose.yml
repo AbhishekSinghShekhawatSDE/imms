@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: timescale/timescaledb:latest-pg15
+    container_name: imms-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=imms_user
+      - POSTGRES_PASSWORD=imms_pass
+      - POSTGRES_DB=imms_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: imms-redis
+    ports:
+      - "6379:6379"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: imms-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://imms_user:imms_pass@postgres:5432/imms_db
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=super-secret-key-for-projectathon-2026
+    depends_on:
+      - postgres
+      - redis
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: imms-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:3001/api/v1
+      - VITE_WS_URL=http://localhost:3001
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
