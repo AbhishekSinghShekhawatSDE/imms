@@ -29,9 +29,9 @@ function Layout({ children, title, subtitle }) {
     ];
 
     return (
-        <div className="min-h-screen flex text-slate-100 bg-[#020617] font-sans selection:bg-emerald-500/30">
-            {/* Sidebar */}
-            <aside className="w-64 border-r border-white/5 flex flex-col p-6 space-y-8 bg-slate-950/40 backdrop-blur-xl sticky top-0 h-screen overflow-y-auto">
+        <div className="min-h-screen flex flex-col md:flex-row text-slate-100 bg-[#020617] font-sans selection:bg-emerald-500/30">
+            {/* Sidebar (Desktop) */}
+            <aside className="hidden md:flex fixed left-0 top-0 bottom-0 w-[220px] border-r border-white/5 flex-col p-6 space-y-8 bg-slate-950/40 backdrop-blur-xl z-50 overflow-y-auto">
                 <div className="flex items-center gap-3 px-2 cursor-pointer" onClick={() => navigate('/')}>
                     <div className="p-2 bg-emerald-600 rounded-xl shadow-lg shadow-emerald-600/20">
                         <Activity className="text-white w-6 h-6" />
@@ -78,12 +78,12 @@ function Layout({ children, title, subtitle }) {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 flex flex-col overflow-hidden">
+            <main className="ml-0 md:ml-[220px] pb-[58px] md:pb-0 flex-1 flex flex-col min-w-0">
                 {/* Header */}
-                <header className="h-20 border-b border-white/5 flex items-center justify-between px-10 bg-slate-950/20 backdrop-blur-md shrink-0">
+                <header className="h-16 md:h-20 border-b border-white/5 flex items-center justify-between px-4 md:px-10 bg-slate-950/20 backdrop-blur-md shrink-0">
                     <div>
-                        <h1 className="text-2xl font-bold text-white tracking-tight capitalize">{title || 'Fleet Intelligence'}</h1>
-                        <p className="text-xs text-slate-500 font-medium tracking-wide">{subtitle || 'Zone A-D Monitoring Cluster'}</p>
+                        <h1 className="text-sm md:text-2xl font-bold text-white tracking-tight capitalize">{title || 'Fleet Intelligence'}</h1>
+                        <p className="text-[10px] md:text-xs text-slate-500 font-medium tracking-wide">{subtitle || 'Zone A-D Monitoring Cluster'}</p>
                     </div>
                     <div className="flex items-center gap-6">
                         <div className="hidden md:flex gap-4 items-center">
@@ -101,10 +101,47 @@ function Layout({ children, title, subtitle }) {
                 </header>
 
                 {/* Content Area */}
-                <section className="flex-1 overflow-y-auto p-10 custom-scrollbar">
+                <section className="flex-1 overflow-y-auto p-4 md:p-10 custom-scrollbar">
                     {children}
                 </section>
             </main>
+
+            {/* Mobile Bottom Nav */}
+            <nav className="flex md:hidden fixed bottom-0 left-0 right-0 h-[58px] bg-slate-950 border-t border-white/5 z-50 flex-row items-stretch">
+                <button
+                    className={`flex-1 flex flex-col items-center justify-center gap-1 text-[9px] font-bold uppercase tracking-tighter ${location.pathname === '/' ? 'text-emerald-500' : 'text-slate-500'}`}
+                    onClick={() => navigate('/')}
+                >
+                    <LayoutDashboard size={18} />
+                    <span>Dashboard</span>
+                </button>
+                <button
+                    className={`flex-1 flex flex-col items-center justify-center gap-1 text-[9px] font-bold uppercase tracking-tighter ${location.pathname === '/machines' ? 'text-emerald-500' : 'text-slate-500'}`}
+                    onClick={() => navigate('/machines')}
+                >
+                    <Database size={18} />
+                    <span>Machines</span>
+                </button>
+                <button
+                    className={`flex-1 flex flex-col items-center justify-center gap-1 text-[9px] font-bold uppercase tracking-tighter ${location.pathname === '/alerts' ? 'text-emerald-500' : 'text-slate-500'}`}
+                    onClick={() => navigate('/alerts')}
+                >
+                    <div className="relative">
+                        <AlertTriangle size={18} />
+                        {menuItems.find(i => i.path === '/alerts')?.badge > 0 && (
+                            <div className="absolute -top-1 -right-1 w-2 h-2 bg-rose-500 rounded-full"></div>
+                        )}
+                    </div>
+                    <span>Alerts</span>
+                </button>
+                <button
+                    className={`flex-1 flex flex-col items-center justify-center gap-1 text-[9px] font-bold uppercase tracking-tighter ${location.pathname === '/settings' ? 'text-emerald-500' : 'text-slate-500'}`}
+                    onClick={() => navigate('/settings')}
+                >
+                    <Settings size={18} />
+                    <span>Settings</span>
+                </button>
+            </nav>
         </div>
     );
 }

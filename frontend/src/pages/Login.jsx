@@ -36,7 +36,7 @@ function Login() {
                 <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/20 blur-[120px] rounded-full"></div>
             </div>
 
-            <div className="w-full max-w-[420px] relative z-10">
+            <div className="w-[92vw] max-w-[420px] relative z-10">
                 <div className="text-center mb-10">
                     <div className="inline-flex p-3 bg-emerald-600 rounded-2xl shadow-xl shadow-emerald-600/20 mb-6">
                         <Activity size={32} className="text-white" />

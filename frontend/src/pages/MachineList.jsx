@@ -41,11 +41,11 @@ function MachineList() {
                         <thead>
                             <tr className="bg-white/[0.02] border-b border-white/5">
                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Asset Identity</th>
-                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Type / Location</th>
+                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 hidden sm:table-cell">Type / Location</th>
                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-center">Status</th>
                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Temperature</th>
-                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Vibration</th>
-                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Energy</th>
+                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right hidden md:table-cell">Vibration</th>
+                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right hidden md:table-cell">Energy</th>
                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Actions</th>
                             </tr>
                         </thead>
@@ -67,7 +67,7 @@ function MachineList() {
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-5">
+                                    <td className="px-6 py-5 hidden sm:table-cell">
                                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{m.type}</p>
                                         <p className="text-xs text-slate-600 font-medium">{m.location}</p>
                                     </td>
@@ -92,14 +92,14 @@ function MachineList() {
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-5 text-right">
+                                    <td className="px-6 py-5 text-right hidden md:table-cell">
                                         <div className="flex items-center justify-end gap-1.5 text-slate-200">
                                             <Activity size={12} className="text-blue-500" />
                                             <span className="text-sm font-mono font-bold">{m.latest?.vibration || '--'}</span>
                                             <span className="text-[10px] text-slate-500">mm/s</span>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-5 text-right">
+                                    <td className="px-6 py-5 text-right hidden md:table-cell">
                                         <div className="flex items-center justify-end gap-1.5 text-slate-200">
                                             <Zap size={12} className="text-amber-500" />
                                             <span className="text-sm font-mono font-bold">{m.latest?.energy || '--'}</span>

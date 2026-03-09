@@ -49,14 +49,14 @@ function Dashboard() {
         <Layout title="Fleet intelligence" subtitle="Zone A-D Monitoring Cluster">
             <div className="space-y-10">
                 {/* Stats Bar */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
                     <StatCard label="Live Assets" value={`${summary.online}/${summary.total_machines}`} icon={<Database size={16} />} color="emerald" />
                     <StatCard label="Uptime" value={`${Math.round(summary.uptime_percent || 0)}%`} trend="+0.2%" icon={<CheckCircle size={16} />} color="blue" />
                     <StatCard label="Active Alerts" value={alerts.filter(a => !a.acknowledged).length} icon={<Bell size={16} />} color={alerts.some(a => !a.acknowledged) ? 'rose' : 'emerald'} />
                     <StatCard label="Latency" value="1.2s" icon={<Activity size={16} />} color="emerald" />
                 </div>
 
-                <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
+                <div className="grid grid-cols-1 xl:grid-cols-[1fr_340px] gap-4 xl:gap-10">
                     {/* Machine list */}
                     <div className="xl:col-span-2 space-y-6">
                         <div className="flex items-center justify-between mb-2">
@@ -71,7 +71,7 @@ function Dashboard() {
                                 View Detail Cluster <ArrowUpRight size={12} />
                             </button>
                         </div>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                             {machines.map((m) => (
                                 <MachineCard key={m.id} machine={m} />
                             ))}
